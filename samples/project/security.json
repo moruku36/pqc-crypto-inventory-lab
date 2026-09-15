@@ -1,0 +1,5 @@
+{
+  "encryption": {"cipher": "AES-256"},
+  "agreement": {"algorithm": "X25519"},
+  "integrity": {"hash": "SHA-384"}
+}

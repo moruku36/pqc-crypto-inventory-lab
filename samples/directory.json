@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "scope": "explicit directory; paths are relative",
+  "files_scanned": 2,
+  "scanned_paths": [
+    "crypto_example.py",
+    "security.json"
+  ],
+  "truncated": false,
+  "findings": [
+    {
+      "path": "crypto_example.py",
+      "line": 13,
+      "kind": "python_api_call",
+      "confidence": "MEDIUM",
+      "value": "RSA",
+      "status": "QUANTUM_VULNERABLE",
+      "reason": "Classical factoring/discrete-log cryptography is vulnerable to Shor's algorithm on a sufficiently capable quantum computer."
+    },
+    {
+      "path": "crypto_example.py",
+      "line": 9,
+      "kind": "python_api_call",
+      "confidence": "MEDIUM",
+      "value": "SHA-1",
+      "status": "UNKNOWN",
+      "reason": "SHA-1 has classical collision weaknesses; replace collision-sensitive uses independently of the quantum assessment."
+    },
+    {
+      "path": "security.json",
+      "line": null,
+      "kind": "configuration",
+      "confidence": "MEDIUM",
+      "value": "AES-256",
+      "status": "SAFE",
+      "reason": "No known efficient quantum break of this algorithm at the stated parameters. SAFE is an algorithm-level screening label; it does not validate implementation, mode, protocol, or key management."
+    },
+    {
+      "path": "security.json",
+      "line": null,
+      "kind": "configuration",
+      "confidence": "MEDIUM",
+      "value": "X25519",
+      "status": "QUANTUM_VULNERABLE",
+      "reason": "Classical factoring/discrete-log cryptography is vulnerable to Shor's algorithm on a sufficiently capable quantum computer."
+    },
+    {
+      "path": "security.json",
+      "line": null,
+      "kind": "configuration",
+      "confidence": "MEDIUM",
+      "value": "SHA-384",
+      "status": "SAFE",
+      "reason": "No known efficient quantum break of this algorithm at the stated parameters. SAFE is an algorithm-level screening label; it does not validate implementation, mode, protocol, or key management."
+    }
+  ],
+  "issues": [],
+  "limitations": [
+    "Static evidence is not proof of runtime use or absence.",
+    "Python AST calls and selected configuration keys only; other code languages/dependencies require review.",
+    "Aliases may be rebound; API hits are medium-confidence evidence.",
+    "Symlinks, generated/dependency directories and large files excluded.",
+    "Scan a quiescent directory; concurrent directory replacement is unsupported.",
+    "No source snippets; relative filenames themselves may be sensitive."
+  ]
+}

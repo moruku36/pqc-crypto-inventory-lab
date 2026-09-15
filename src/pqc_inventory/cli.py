@@ -4,8 +4,10 @@ import argparse
 import json
 import sys
 from collections.abc import Sequence
+from pathlib import Path
 
 from pqc_inventory import __version__
+from pqc_inventory.directory_scanner import scan_directory
 from pqc_inventory.tls_scanner import ScanError, scan_tls
 
 
@@ -19,10 +21,15 @@ def main(argv: Sequence[str] | None = None) -> int:
     tls.add_argument("host")
     tls.add_argument("--port", type=int, default=443)
     tls.add_argument("--timeout", type=float, default=5.0)
+    directory = commands.add_parser("directory", help="Inventory an explicitly chosen directory")
+    directory.add_argument("path", type=Path)
+    directory.add_argument("--max-files", type=int, default=10000)
     args = parser.parse_args(argv)
     try:
         if args.command == "tls":
             print(json.dumps(scan_tls(args.host, args.port, args.timeout), indent=2))
+        elif args.command == "directory":
+            print(json.dumps(scan_directory(args.path, args.max_files), indent=2))
         else:
             parser.print_help()
     except ScanError as error:

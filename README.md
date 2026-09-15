@@ -4,7 +4,7 @@
 
 ## 実装状況
 
-Phase 0–1: CLI・CIとTLSスキャナーを実装。後続機能はPhase単位で追加します。
+Phase 0–2: CLI・CI・TLSスキャナー・ディレクトリ棚卸しを実装。
 
 ### 現在の検証状況（2026-09-15）
 
@@ -69,3 +69,26 @@ SAFEは限定的なアルゴリズム評価で、システム全体の安全性�
 SHA-1の古典的な弱点と量子脆弱性は区別します。CRL/OCSP検証は行いません。
 実行例は`samples/tls-github.json`。ライブ値は実行日時・経路で変化します。
 Phase 1検証: pytest 16件、Ruff、mypy成功。
+
+## ディレクトリ棚卸し（Phase 2）
+
+```sh
+pqc-scan directory ./samples/project
+pqc-scan directory ./project --max-files 5000
+```
+
+Pythonの暗号ライブラリAPI呼び出しをASTで解析し、設定のalgorithm/cipher/hash等の
+既知キー、PEM・DER証明書、PEM/SSH公開鍵を解析します。RSA、ECDSA、ECDH、
+Ed25519、X25519、SHA-1/256/384/512、AESを対象とします。
+文字列・コメントにアルゴリズム名があるだけでは検出しません。
+秘密鍵はヘッダーの存在のみを記録し、鍵のデコードや本文出力は行いません。
+
+最大1 MiB/ファイル、最大10,000ファイル。シンボリックリンク・.git・仮想環境・
+node_modules・reportsを除外します。.env等も除外し、読み取れないファイルはissuesに
+固定理由を記録します。件数制限ではtruncated=trueを返します。
+ファイル更新を止めた静的ディレクトリで実行してください。
+
+相対パス自体は出力されます。共有前に機微なファイル名がないか確認してください。
+検出ゼロは暗号不使用の証明ではありません。依存設定やPython以外のソースを含む
+全言語・全形式の解析は未対応です。例: `samples/directory.json`。
+Phase 2検証: pytest 21件、Ruff、mypy成功。
