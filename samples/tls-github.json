@@ -9,7 +9,7 @@
   },
   "cipher_suite": "TLS_AES_128_GCM_SHA256",
   "symmetric_cipher": {
-    "value": "UNKNOWN",
+    "value": "AES-128",
     "status": "UNKNOWN",
     "reason": "Insufficient evidence about parameters, usage, or negotiated algorithms; no system-level security inference is made."
   },
@@ -27,6 +27,11 @@
     },
     "signature_oid": "1.2.840.10045.4.3.2",
     "expiration": "2026-11-29T23:59:59+00:00"
+  },
+  "cipher_hash": {
+    "value": "SHA-256",
+    "status": "UNKNOWN",
+    "reason": "Insufficient evidence about parameters, usage, or negotiated algorithms; no system-level security inference is made."
   },
   "key_exchange": {
     "value": "UNKNOWN",

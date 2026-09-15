@@ -126,3 +126,11 @@ Phase 4検証: pytest 35件、Ruff、mypy成功。
 ハイブリッド暗号、RSA/ECC、PKI/X.509、TLS、署名・ハッシュ・鍵交換・証明書、
 CRL/OCSP、暗号移行、Crypto Agility、PQCを整理しました。
 各項目に試験ポイント・実装箇所・実務用途・間違えやすい点を記載しています。
+
+## 最終検証
+
+Codespacesでpytest 37件、Ruff、mypy、CLI全コマンド、公開TLS取得、
+ディレクトリ棚卸し、採点付きレポート生成が成功しました。
+最終レビューでは、TLSの既知のAES-128/ChaCha20・ハッシュ表示を追加し、
+未対応公開鍵方式をUNKNOWNにする処理と、エラーに秘密の詳細を含めない回帰検査を追加しました。
+Phase 0〜5のGitHub Actionsはすべて成功確認済みです。

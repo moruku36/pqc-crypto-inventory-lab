@@ -1,4 +1,6 @@
+import ssl
 from datetime import UTC, datetime, timedelta
+from unittest.mock import patch
 
 import pytest
 from cryptography import x509
@@ -51,3 +53,15 @@ def test_cli_failure_is_structured(capsys: pytest.CaptureFixture[str]) -> None:
                                         ("AES", "UNKNOWN"), ("SHA-1", "UNKNOWN")])
 def test_quantum_assessment(name: str, status: str) -> None:
     assert assess(name).status == status
+
+
+@pytest.mark.parametrize("error,code", [
+    (ssl.SSLCertVerificationError("SECRET_CANARY"), "CERTIFICATE_VERIFICATION_FAILED"),
+    (TimeoutError("SECRET_CANARY"), "TLS_CONNECTION_FAILED"),
+])
+def test_tls_errors_are_sanitized(error: OSError, code: str) -> None:
+    with patch("pqc_inventory.tls_scanner.socket.create_connection", side_effect=error):
+        with pytest.raises(ScanError) as failure:
+            scan_tls("example.com")
+    assert code in str(failure.value)
+    assert "SECRET_CANARY" not in str(failure.value)

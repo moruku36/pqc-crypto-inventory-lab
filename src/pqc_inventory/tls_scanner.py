@@ -6,6 +6,7 @@ import ssl
 from typing import Any
 
 from cryptography import x509
+from cryptography.exceptions import UnsupportedAlgorithm
 from cryptography.hazmat.primitives.asymmetric import (
     dh,
     dsa,
@@ -44,7 +45,10 @@ def public_key_info(key: Any) -> tuple[str, int | str]:
 
 def certificate_info(der: bytes) -> dict[str, Any]:
     cert = x509.load_der_x509_certificate(der)
-    algorithm, size = public_key_info(cert.public_key())
+    try:
+        algorithm, size = public_key_info(cert.public_key())
+    except UnsupportedAlgorithm:
+        algorithm, size = "UNKNOWN", "UNKNOWN"
     # EC key encoding alone does not prove signature versus agreement usage.
     key_assessment = assess("ECDH/ECDSA" if algorithm == "ECC" else algorithm).to_dict()
     key_assessment["value"] = algorithm
@@ -91,13 +95,25 @@ def scan_tls(host: str, port: int = 443, timeout: float = 5.0) -> dict[str, Any]
         certificate = certificate_info(der)
     except ssl.SSLCertVerificationError:
         raise ScanError("CERTIFICATE_VERIFICATION_FAILED: trust, name, or validity") from None
-    except (OSError, ssl.SSLError, ValueError):
+    except (OSError, ssl.SSLError, ValueError, UnsupportedAlgorithm):
         raise ScanError("TLS_CONNECTION_FAILED: DNS, network, timeout, or TLS error") from None
-    encryption = "AES-256" if "AES_256" in cipher or "AES256" in cipher else "UNKNOWN"
+    encryption = "UNKNOWN"
+    for marker, algorithm in (("AES256", "AES-256"), ("AES128", "AES-128"),
+                              ("CHACHA20", "ChaCha20")):
+        if marker in cipher.replace("_", ""):
+            encryption = algorithm
+            break
+    cipher_hash = "UNKNOWN"
+    for marker, algorithm in (("SHA256", "SHA-256"), ("SHA384", "SHA-384"),
+                              ("SHA512", "SHA-512")):
+        if cipher.endswith(marker):
+            cipher_hash = algorithm
+            break
     return {
         "schema_version": 1, "target": host, "port": port,
         "tls_version": assess(version).to_dict(), "cipher_suite": cipher,
         "symmetric_cipher": assess(encryption).to_dict(), "certificate": certificate,
+        "cipher_hash": assess(cipher_hash).to_dict(),
         "key_exchange": assess(key_exchange(version, cipher)).to_dict(),
         "limitations": ["One handshake and leaf certificate only; not all server capabilities.",
                         "No CRL/OCSP check or complete chain inventory.",
