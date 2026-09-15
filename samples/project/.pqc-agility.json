@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "criteria": {
+    "algorithm_abstraction": {"level": "documented", "evidence": ["agility_design.txt"]},
+    "key_rotation": {"level": "documented", "evidence": ["agility_design.txt"]},
+    "upgradeability": {"level": "documented", "evidence": ["agility_design.txt"]}
+  }
+}

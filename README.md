@@ -4,7 +4,7 @@
 
 ## 実装状況
 
-Phase 0–3: CLI・CI・TLS・ディレクトリ棚卸し・移行レポートを実装。
+Phase 0–4: CLI・CI・TLS・ディレクトリ棚卸し・移行レポート・採点を実装。
 
 ### 現在の検証状況（2026-09-15）
 
@@ -106,3 +106,16 @@ P1はSHA-1用途・鍵保管の確認、P2は量子脆弱な公開鍵方式の�
 P3はパラメータ等の確認という独自のトリアージです。NISTの義務・期限ではありません。
 PQC候補は用途別の検討案で、ライブラリ・PKI・プロトコル対応の検証が必要です。
 Phase 3検証: pytest 26件、Ruff、mypy成功。Phase 0–2のGitHub Actionsも成功確認済み。
+
+## Crypto Agility Score（Phase 4）
+
+```sh
+pqc-scan score ./samples/project
+```
+
+10項目の点数・理由・根拠・改善案をJSONで出力し、reportにも組み込みます。
+[採点基準とmanifest仕様](docs/scoring.md)を参照してください。
+UNKNOWNは未評価、DECLAREDは運用側の申告で、実行検証済みという意味ではありません。
+サンプルは25/100（静的根拠10点＋設計の申告15点）で、本番の成熟度評価ではありません。
+出力例は`samples/score.json`と`samples/crypto_inventory_scored.md`。
+Phase 4検証: pytest 35件、Ruff、mypy成功。

@@ -1,8 +1,10 @@
 {
   "schema_version": 1,
   "scope": "explicit directory; paths are relative",
-  "files_scanned": 2,
+  "files_scanned": 4,
   "scanned_paths": [
+    ".pqc-agility.json",
+    "agility_design.txt",
     "crypto_example.py",
     "security.json"
   ],

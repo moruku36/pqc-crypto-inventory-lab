@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from pqc_inventory.directory_scanner import scan_directory
+from pqc_inventory.scoring import score_inventory
 from pqc_inventory.tls_scanner import ScanError
 
 REFERENCES = [
@@ -85,9 +86,23 @@ def render_report(inventory: dict[str, Any]) -> str:
     lines += ["", "## Recommended PQC Replacement", ""]
     for algorithm in sorted({str(item["value"]) for item in findings}):
         lines.append(f"- {cell(algorithm)}: {replacement(algorithm)}")
-    lines += ["", "## Crypto Agility Assessment", "",
-              "Not scored in Phase 3. Inventory alone cannot establish operational agility.",
-              "", "## Findings", ""]
+    lines += ["", "## Crypto Agility Assessment", ""]
+    agility = inventory.get("agility")
+    if agility:
+        lines += [f"Crypto Agility Score: {agility['score']} / 100 (evidence points).",
+                  f"Assessed: {agility['assessed_items']} / 10; "
+                  f"declared: {agility['declared_items']}; "
+                  f"partial inventory: {agility['partial_inventory']}.",
+                  agility["interpretation"], "",
+                  "| Criterion | Score | Status | Reason | Evidence | Recommendation |",
+                  "|---|---|---|---|---|---|"]
+        for item in agility["items"]:
+            lines.append("| " + " | ".join(cell(x) for x in (
+                item["criterion"], f"{item['score']}/10", item["status"], item["reason"],
+                ", ".join(item["evidence"]), item["recommendation"])) + " |")
+    else:
+        lines.append("Not scored. Inventory alone cannot establish operational agility.")
+    lines += ["", "## Findings", ""]
     for issue in inventory["issues"]:
         lines.append(f"- {cell(issue['path'])}: {cell(issue['reason'])}")
     if inventory["truncated"]:
@@ -105,6 +120,7 @@ def render_report(inventory: dict[str, Any]) -> str:
 
 def create_report(root: Path, output: Path, max_files: int = 10000) -> Path:
     inventory = scan_directory(root, max_files)
+    inventory["agility"] = score_inventory(root, inventory)
     content = render_report(inventory)
     try:
         output.parent.mkdir(parents=True, exist_ok=True)

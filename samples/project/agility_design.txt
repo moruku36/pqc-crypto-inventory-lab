@@ -1,0 +1,7 @@
+Synthetic design-only fixture. No production deployment or successful test is claimed.
+
+Algorithm abstraction: introduce a crypto-provider interface with explicit policy validation.
+Key rotation: stage new keys, allow overlap, then retire old keys with an auditable rollback plan.
+Upgradeability: stage protocol and client compatibility tests before switching providers.
+
+These are documented intentions. They are not implemented or operationally verified here.

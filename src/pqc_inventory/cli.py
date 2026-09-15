@@ -9,6 +9,7 @@ from pathlib import Path
 from pqc_inventory import __version__
 from pqc_inventory.directory_scanner import scan_directory
 from pqc_inventory.report import create_report
+from pqc_inventory.scoring import score_inventory
 from pqc_inventory.tls_scanner import ScanError, scan_tls
 
 
@@ -29,6 +30,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     report.add_argument("path", type=Path)
     report.add_argument("--output", type=Path, default=Path("reports/crypto_inventory.md"))
     report.add_argument("--max-files", type=int, default=10000)
+    score = commands.add_parser("score", help="Evidence-based Crypto Agility score")
+    score.add_argument("path", type=Path)
+    score.add_argument("--max-files", type=int, default=10000)
     args = parser.parse_args(argv)
     try:
         if args.command == "tls":
@@ -38,6 +42,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "report":
             output = create_report(args.path, args.output, args.max_files)
             print(json.dumps({"event": "report_created", "output": str(output)}))
+        elif args.command == "score":
+            inventory = scan_directory(args.path, args.max_files)
+            print(json.dumps(score_inventory(args.path, inventory), indent=2))
         else:
             parser.print_help()
     except ScanError as error:

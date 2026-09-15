@@ -1,0 +1,113 @@
+{
+  "score": 25,
+  "max_score": 100,
+  "assessed_items": 6,
+  "total_items": 10,
+  "declared_items": 3,
+  "partial_inventory": false,
+  "items": [
+    {
+      "criterion": "hard_coded_algorithms",
+      "score": 0,
+      "max_score": 10,
+      "status": "STATIC_EVIDENCE",
+      "reason": "Explicit crypto API calls found; conservative hard-coding flag. This overrides positive declarations; review possible wrapper use.",
+      "evidence": [
+        "crypto_example.py"
+      ],
+      "recommendation": "Move algorithm selection behind configuration or an interface."
+    },
+    {
+      "criterion": "algorithm_abstraction",
+      "score": 5,
+      "max_score": 10,
+      "status": "DECLARED",
+      "reason": "Operator declares documented; evidence files exist. Content and operational claims are not independently verified.",
+      "evidence": [
+        "agility_design.txt"
+      ],
+      "recommendation": "Document and test an interchangeable crypto provider interface."
+    },
+    {
+      "criterion": "centralized_key_management",
+      "score": 0,
+      "max_score": 10,
+      "status": "UNKNOWN",
+      "reason": "Insufficient evidence. Zero unawarded points do not prove poor agility.",
+      "evidence": [],
+      "recommendation": "Document key ownership, access control and KMS/HSM integration."
+    },
+    {
+      "criterion": "certificate_automation",
+      "score": 0,
+      "max_score": 10,
+      "status": "UNKNOWN",
+      "reason": "Insufficient evidence. Zero unawarded points do not prove poor agility.",
+      "evidence": [],
+      "recommendation": "Document and test automated certificate issuance/deployment."
+    },
+    {
+      "criterion": "key_rotation",
+      "score": 5,
+      "max_score": 10,
+      "status": "DECLARED",
+      "reason": "Operator declares documented; evidence files exist. Content and operational claims are not independently verified.",
+      "evidence": [
+        "agility_design.txt"
+      ],
+      "recommendation": "Test rotation, overlap, retirement and rollback of keys."
+    },
+    {
+      "criterion": "cryptographic_library_dependency",
+      "score": 5,
+      "max_score": 10,
+      "status": "STATIC_EVIDENCE",
+      "reason": "Configuration or crypto library API evidence found. Runtime selection, support status and migration tests are unverified.",
+      "evidence": [
+        "crypto_example.py"
+      ],
+      "recommendation": "Track supported library versions and update procedures."
+    },
+    {
+      "criterion": "protocol_negotiation",
+      "score": 0,
+      "max_score": 10,
+      "status": "UNKNOWN",
+      "reason": "Insufficient evidence. Zero unawarded points do not prove poor agility.",
+      "evidence": [],
+      "recommendation": "Test authenticated negotiation and downgrade resistance."
+    },
+    {
+      "criterion": "configuration_driven_selection",
+      "score": 5,
+      "max_score": 10,
+      "status": "STATIC_EVIDENCE",
+      "reason": "Configuration or crypto library API evidence found. Runtime selection, support status and migration tests are unverified.",
+      "evidence": [
+        "security.json"
+      ],
+      "recommendation": "Validate configurable choices against an approved policy."
+    },
+    {
+      "criterion": "certificate_lifecycle_automation",
+      "score": 0,
+      "max_score": 10,
+      "status": "UNKNOWN",
+      "reason": "Insufficient evidence. Zero unawarded points do not prove poor agility.",
+      "evidence": [],
+      "recommendation": "Test renewal, expiry monitoring and revocation workflows."
+    },
+    {
+      "criterion": "upgradeability",
+      "score": 5,
+      "max_score": 10,
+      "status": "DECLARED",
+      "reason": "Operator declares documented; evidence files exist. Content and operational claims are not independently verified.",
+      "evidence": [
+        "agility_design.txt"
+      ],
+      "recommendation": "Test a crypto migration with compatibility checks and rollback."
+    }
+  ],
+  "interpretation": "Evidence/declared-maturity points, not a measured probability or NIST score. Unknowns receive no points and are shown separately. Declared tests are not executed or validated by this tool. Compare only equivalent scope and evidence."
+}
