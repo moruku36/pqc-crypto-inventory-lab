@@ -52,6 +52,8 @@ remote・branch・commit・working tree・反映確認、完了報告の順で�
 
 [設計](docs/architecture.md) · [参照資料](docs/references.md)
 
+[実装サマリー・検証結果・各PhaseのGit履歴](IMPLEMENTATION_SUMMARY.md)
+
 ## TLSスキャン（Phase 1）
 
 ```sh
