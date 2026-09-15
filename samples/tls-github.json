@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "target": "github.com",
+  "port": 443,
+  "tls_version": {
+    "value": "TLSv1.3",
+    "status": "UNKNOWN",
+    "reason": "Insufficient evidence about parameters, usage, or negotiated algorithms; no system-level security inference is made."
+  },
+  "cipher_suite": "TLS_AES_128_GCM_SHA256",
+  "symmetric_cipher": {
+    "value": "UNKNOWN",
+    "status": "UNKNOWN",
+    "reason": "Insufficient evidence about parameters, usage, or negotiated algorithms; no system-level security inference is made."
+  },
+  "certificate": {
+    "public_key": {
+      "value": "ECC",
+      "status": "QUANTUM_VULNERABLE",
+      "reason": "Classical factoring/discrete-log cryptography is vulnerable to Shor's algorithm on a sufficiently capable quantum computer."
+    },
+    "public_key_size_bits": 256,
+    "signature": {
+      "value": "ECDSA-SHA-256",
+      "status": "QUANTUM_VULNERABLE",
+      "reason": "Classical factoring/discrete-log cryptography is vulnerable to Shor's algorithm on a sufficiently capable quantum computer."
+    },
+    "signature_oid": "1.2.840.10045.4.3.2",
+    "expiration": "2026-11-29T23:59:59+00:00"
+  },
+  "key_exchange": {
+    "value": "UNKNOWN",
+    "status": "UNKNOWN",
+    "reason": "Insufficient evidence about parameters, usage, or negotiated algorithms; no system-level security inference is made."
+  },
+  "limitations": [
+    "One handshake and leaf certificate only; not all server capabilities.",
+    "No CRL/OCSP check or complete chain inventory.",
+    "Negotiated group unavailable from Python ssl; TLS 1.3 KEX is UNKNOWN.",
+    "Socket timeout excludes platform DNS resolver delays."
+  ]
+}

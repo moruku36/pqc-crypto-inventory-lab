@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A small, evidence-based cryptographic inventory learning lab"
 requires-python = ">=3.11"
 license = "MIT"
-dependencies = []
+dependencies = ["cryptography>=44,<49"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1", "mypy>=1.15,<2"]

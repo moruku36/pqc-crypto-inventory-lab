@@ -4,8 +4,7 @@
 
 ## 実装状況
 
-Phase 0: CLI雛形・pytest・lint・型検査・CI設定を実装。
-TLSスキャン以降の機能は、Phase 0のpush成功確認後に順次実装します。
+Phase 0–1: CLI・CIとTLSスキャナーを実装。後続機能はPhase単位で追加します。
 
 ### 現在の検証状況（2026-09-15）
 
@@ -52,3 +51,21 @@ remote・branch・commit・working tree・反映確認、完了報告の順で�
 ローカルレポートは機微なパスを含み得るため、reports/はGit対象外です。
 
 [設計](docs/architecture.md) · [参照資料](docs/references.md)
+
+## TLSスキャン（Phase 1）
+
+```sh
+pqc-scan tls github.com --timeout 5
+pqc-scan tls example.com --port 443
+```
+
+JSONでTLSバージョン、暗号スイート、証明書の署名・公開鍵・鍵長・有効期限、
+取得可能な鍵交換ファミリーと理由を返します。TLS 1.3の鍵交換グループは
+Python sslが公開しないためUNKNOWNです。接続は証明書の名前・信頼・期限を検証します。
+失敗時は標準エラーに構造化JSONを出して終了コード1、引数エラーは2です。
+DNS解決にはOS側の待ち時間があり、`--timeout`は全処理の厳密な上限ではありません。
+
+SAFEは限定的なアルゴリズム評価で、システム全体の安全性を示しません。
+SHA-1の古典的な弱点と量子脆弱性は区別します。CRL/OCSP検証は行いません。
+実行例は`samples/tls-github.json`。ライブ値は実行日時・経路で変化します。
+Phase 1検証: pytest 16件、Ruff、mypy成功。
