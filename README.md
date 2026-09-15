@@ -4,7 +4,7 @@
 
 ## 実装状況
 
-Phase 0–4: CLI・CI・TLS・ディレクトリ棚卸し・移行レポート・採点を実装。
+Phase 0–5: CLI・CI・TLS・棚卸し・移行レポート・採点・支援士学習ノートを実装。
 
 ### 現在の検証状況（2026-09-15）
 
@@ -119,3 +119,10 @@ UNKNOWNは未評価、DECLAREDは運用側の申告で、実行検証済みと�
 サンプルは25/100（静的根拠10点＋設計の申告15点）で、本番の成熟度評価ではありません。
 出力例は`samples/score.json`と`samples/crypto_inventory_scored.md`。
 Phase 4検証: pytest 35件、Ruff、mypy成功。
+
+## 支援士学習ノート（Phase 5）
+
+[セキュリティ技術と実装の対応](docs/security-specialist-notes.md)に、公開鍵・共通鍵・
+ハイブリッド暗号、RSA/ECC、PKI/X.509、TLS、署名・ハッシュ・鍵交換・証明書、
+CRL/OCSP、暗号移行、Crypto Agility、PQCを整理しました。
+各項目に試験ポイント・実装箇所・実務用途・間違えやすい点を記載しています。
