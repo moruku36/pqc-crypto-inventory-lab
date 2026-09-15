@@ -4,7 +4,7 @@
 
 ## 実装状況
 
-Phase 0–2: CLI・CI・TLSスキャナー・ディレクトリ棚卸しを実装。
+Phase 0–3: CLI・CI・TLS・ディレクトリ棚卸し・移行レポートを実装。
 
 ### 現在の検証状況（2026-09-15）
 
@@ -92,3 +92,17 @@ node_modules・reportsを除外します。.env等も除外し、読み取れな
 検出ゼロは暗号不使用の証明ではありません。依存設定やPython以外のソースを含む
 全言語・全形式の解析は未対応です。例: `samples/directory.json`。
 Phase 2検証: pytest 21件、Ruff、mypy成功。
+
+## 移行レポート（Phase 3）
+
+```sh
+pqc-scan report ./samples/project
+pqc-scan report ./project --output reports/project-review.md
+```
+
+必須9章を含むMarkdownを生成します。既存ファイルは上書きしません。
+`reports/`の既定出力はGit対象外。共有用の合成例は`samples/crypto_inventory.md`です。
+P1はSHA-1用途・鍵保管の確認、P2は量子脆弱な公開鍵方式の用途・保持期間の調査、
+P3はパラメータ等の確認という独自のトリアージです。NISTの義務・期限ではありません。
+PQC候補は用途別の検討案で、ライブラリ・PKI・プロトコル対応の検証が必要です。
+Phase 3検証: pytest 26件、Ruff、mypy成功。Phase 0–2のGitHub Actionsも成功確認済み。

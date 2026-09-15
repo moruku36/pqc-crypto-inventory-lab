@@ -8,6 +8,7 @@ from pathlib import Path
 
 from pqc_inventory import __version__
 from pqc_inventory.directory_scanner import scan_directory
+from pqc_inventory.report import create_report
 from pqc_inventory.tls_scanner import ScanError, scan_tls
 
 
@@ -24,12 +25,19 @@ def main(argv: Sequence[str] | None = None) -> int:
     directory = commands.add_parser("directory", help="Inventory an explicitly chosen directory")
     directory.add_argument("path", type=Path)
     directory.add_argument("--max-files", type=int, default=10000)
+    report = commands.add_parser("report", help="Create a Markdown migration report")
+    report.add_argument("path", type=Path)
+    report.add_argument("--output", type=Path, default=Path("reports/crypto_inventory.md"))
+    report.add_argument("--max-files", type=int, default=10000)
     args = parser.parse_args(argv)
     try:
         if args.command == "tls":
             print(json.dumps(scan_tls(args.host, args.port, args.timeout), indent=2))
         elif args.command == "directory":
             print(json.dumps(scan_directory(args.path, args.max_files), indent=2))
+        elif args.command == "report":
+            output = create_report(args.path, args.output, args.max_files)
+            print(json.dumps({"event": "report_created", "output": str(output)}))
         else:
             parser.print_help()
     except ScanError as error:
