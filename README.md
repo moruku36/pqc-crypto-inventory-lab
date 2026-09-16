@@ -1,5 +1,9 @@
 # PQC Crypto Inventory Lab
 
+[![CI](https://github.com/moruku36/pqc-crypto-inventory-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/moruku36/pqc-crypto-inventory-lab/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python: 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](pyproject.toml)
+
 **ソフトウェアで使われている暗号方式を見つけ、「将来、どこを見直す必要がありそうか」を整理する学習用ツールです。**
 
 ![PQC Crypto Inventory Lab — Architecture Overview](docs/images/architecture-overview.jpg)
@@ -94,7 +98,7 @@ Phase 0–5: CLI・CI・TLS・棚卸し・移行レポート・採点・支援�
 
 ### 現在の検証状況（2026-09-15）
 
-- 専用Privateリポジトリ: https://github.com/moruku36/pqc-crypto-inventory-lab
+- リポジトリ: https://github.com/moruku36/pqc-crypto-inventory-lab
 - 初期構成時点ではpytest 3件が成功。全機能実装後は37件・Ruff・mypyが成功（下記「最終検証」）。
 - Windowsからの依存取得はTLSエラー。利用者の許可により検証・commit・pushを
   Codespacesへ移行。ここでいうローカルテストはクラウド開発環境内のテストです。
@@ -224,3 +228,7 @@ Codespacesでpytest 37件、Ruff、mypy、CLI全コマンド、公開TLS取得�
 最終レビューでは、TLSの既知のAES-128/ChaCha20・ハッシュ表示を追加し、
 未対応公開鍵方式をUNKNOWNにする処理と、エラーに秘密の詳細を含めない回帰検査を追加しました。
 Phase 0〜5のGitHub Actionsはすべて成功確認済みです。
+
+## ライセンス
+
+このプロジェクトは [MIT License](LICENSE) の下で公開されています。

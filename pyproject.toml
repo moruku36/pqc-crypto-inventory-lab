@@ -6,9 +6,15 @@ build-backend = "setuptools.build_meta"
 name = "pqc-crypto-inventory-lab"
 version = "0.1.0"
 description = "A small, evidence-based cryptographic inventory learning lab"
+readme = "README.md"
 requires-python = ">=3.11"
-license = "MIT"
+license = { text = "MIT" }
 dependencies = ["cryptography>=44,<49"]
+
+[project.urls]
+Homepage = "https://github.com/moruku36/pqc-crypto-inventory-lab"
+Repository = "https://github.com/moruku36/pqc-crypto-inventory-lab"
+Issues = "https://github.com/moruku36/pqc-crypto-inventory-lab/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1", "mypy>=1.15,<2"]
