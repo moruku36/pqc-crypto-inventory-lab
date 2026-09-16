@@ -41,6 +41,13 @@ pqc-scan score ./samples/project
 | 更新・切戻しの準備 | 5 | 設計の記載についての申告 |
 | **合計** | **25** | **静的根拠10点＋設計についての申告15点** |
 
+```mermaid
+pie title サンプル評価の内訳（合計 25 / 100点）
+    "静的根拠 (STATIC_EVIDENCE 2項目)" : 10
+    "設計申告 (DECLARED 3項目)" : 15
+    "未評価/減点 (UNKNOWN 4項目 + 直接指定 1項目)" : 75
+```
+
 この例では、根拠がある6項目のうち1項目が0点、5項目が5点です。
 残り4項目はUNKNOWNなので、`assessed_items`は6になります。
 `declared_items`の3は、そのうち3項目を申告によって評価したという意味です。
@@ -64,6 +71,19 @@ UNKNOWNの0点は根拠不足であり、「能力がない」という判定で
 | tested申告＋読取対象内の証拠ファイル | 10 | DECLARED。テスト内容は本ツールでは実行・検証しない |
 | 設定の暗号選択またはPython暗号API利用を検出 | 該当項目に5 | STATIC_EVIDENCE。稼働状態・保守性は未検証 |
 | 明示的なPython暗号API呼び出しを検出 | hard_coded_algorithmsを0 | STATIC_EVIDENCE。肯定的申告より優先。ラッパー内部の呼出しの可能性は人が確認 |
+
+```mermaid
+flowchart TD
+    Start[項目の評価開始] --> CheckStatic{静的解析で該当？}
+    CheckStatic -->|API直接呼出しを検出| HC0[hard_coded_algorithms: 0点<br/>STATIC_EVIDENCE]
+    CheckStatic -->|設定での方式選択/ライブラリ利用| St5[該当項目: 5点<br/>STATIC_EVIDENCE]
+    CheckStatic -->|静的根拠なし| CheckDecl{.pqc-agility.jsonの申告？}
+    
+    CheckDecl -->|tested + 証拠ファイル存在| Dec10[10点 / DECLARED]
+    CheckDecl -->|documented + 証拠ファイル存在| Dec5[5点 / DECLARED]
+    CheckDecl -->|absent 申告| Dec0[0点 / DECLARED]
+    CheckDecl -->|unknown または 申告なし| Unk0[0点 / UNKNOWN]
+```
 
 自動評価はhard_coded_algorithms、cryptographic_library_dependency、
 configuration_driven_selectionだけです。他の項目をキーワード一致で推定しません。

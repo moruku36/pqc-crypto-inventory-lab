@@ -5,6 +5,15 @@
 このガイドのゴールは、付属サンプルを調べて、レポートを1つ作ることです。
 暗号方式を自分で実装する必要はありません。
 
+```mermaid
+flowchart LR
+    Step1["1. 環境準備<br/>(Codespaces起動)"] --> Step2["2. 初期セットアップ<br/>(venv & pip)"]
+    Step2 --> Step3["3. 暗号棚卸し<br/>(directory)"]
+    Step3 --> Step4["4. 根拠・採点<br/>(score)"]
+    Step4 --> Step5["5. レポート生成<br/>(report)"]
+    Step5 --> Step6["6. 通信観測<br/>(tls)"]
+```
+
 ## 1. 作業する場所を確認する
 
 このプロジェクトでは、ブラウザから使える開発環境「GitHub Codespaces」を利用できます。

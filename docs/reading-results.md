@@ -38,6 +38,18 @@ HIGHでも、その鍵が適切に管理されていることや、システム�
 
 ## 判定ごとに、次にすること
 
+```mermaid
+flowchart TD
+    Result[検出結果のステータス] --> Check{判定はどれか}
+    Check -->|QUANTUM_VULNERABLE| QV[将来の量子計算で解読リスクあり]
+    Check -->|SAFE| SF[対象パラメータで既知の効率的攻撃なし]
+    Check -->|UNKNOWN| UN[情報不足または判定保留]
+
+    QV --> ActQV["【次のアクション】<br/>用途・保管期間の確認<br/>PQC(ML-KEM/ML-DSA等)への移行検討"]
+    SF --> ActSF["【次のアクション】<br/>方式単体の判定にとどまるため<br/>鍵長・モード・運用管理の適切性を確認"]
+    UN --> ActUN["【次のアクション】<br/>reason欄を確認<br/>SHA-1は古典的衝突リスクを即時見直し<br/>TLS 1.3鍵交換等は追加観測を検討"]
+```
+
 ### QUANTUM_VULNERABLE：用途と移行条件を調べる
 
 RSAやX25519などに出ます。「現在すでに破られている」という意味ではありません。

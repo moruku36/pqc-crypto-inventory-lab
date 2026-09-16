@@ -2,6 +2,8 @@
 
 **ソフトウェアで使われている暗号方式を見つけ、「将来、どこを見直す必要がありそうか」を整理する学習用ツールです。**
 
+![PQC Crypto Inventory Lab — Architecture Overview](docs/images/architecture-overview.jpg)
+
 たとえば、プログラムの中にRSAという暗号方式が使われていたら、その場所と見直す理由を記録します。
 設定ファイルやWebサイトの通信で使われる暗号も、対応する範囲で調べられます。
 調査結果を一覧表とレポートにまとめるところまでを、このプロジェクトで体験できます。
@@ -40,6 +42,33 @@
 | `pqc-scan score ./samples/project` | 暗号を変更しやすい設計・運用の根拠を整理する | 10項目の点数と説明 |
 | `pqc-scan report ./samples/project` | 棚卸しと採点を読み物にまとめる | Markdown形式のレポート |
 | `pqc-scan tls github.com` | Webサイトとの暗号通信を確認する | 接続時に選ばれた方式や証明書情報 |
+
+```mermaid
+flowchart TD
+    subgraph Input["スキャン対象"]
+        Dir["ディレクトリ (ソースコード・設定・証明書)"]
+        Web["Webサイト (ドメイン名)"]
+    end
+
+    subgraph Commands["pqc-scan コマンド"]
+        cmdDir["pqc-scan directory"]
+        cmdScore["pqc-scan score"]
+        cmdReport["pqc-scan report"]
+        cmdTLS["pqc-scan tls"]
+    end
+
+    subgraph Output["出力形式"]
+        JsonInv["暗号インベントリ (JSON)"]
+        JsonScore["アジリティ採点 (JSON)"]
+        MdReport["移行レビュー報告書 (Markdown)"]
+        JsonTLS["TLS接続・証明書情報 (JSON)"]
+    end
+
+    Dir --> cmdDir --> JsonInv
+    Dir --> cmdScore --> JsonScore
+    Dir --> cmdReport --> MdReport
+    Web --> cmdTLS --> JsonTLS
+```
 
 最初は`directory`から試すと、手元のサンプルと結果を見比べられます。
 Codespacesでの「手元」はクラウド環境内です。Windowsのファイルを自動で調べることはありません。
@@ -100,14 +129,16 @@ remote・branch・commit・working tree・反映確認、完了報告の順で�
 4. 根拠を示すCrypto Agility採点
 5. 情報処理安全確保支援士の学習ノート
 
-## 安全性
+## 安全性と免責事項（Security & Disclaimer）
 
-学習用であり、包括的な暗号監査や安全性の証明ではありません。
-スキャナーは取得できない情報をUNKNOWNとし、秘密鍵本文・トークン・
-認証情報を出力しません。TLS取得は通常の公開ハンドシェイクに限定します。
-ローカルレポートは機微なパスを含み得るため、reports/はGit対象外です。
+- **学習・事前調査目的のツール**: 本ツールは教育・学習・暗号移行の初期トリアージを目的としており、包括的な暗号監査、脆弱性診断、または安全性の証明を提供するものではありません。
+- **公式認定・標準との関係**: NIST等の公的機関による認定ツールではありません。Crypto Agilityの採点やP1〜P3の優先度分類は本プロジェクト独自の学習用ヒューリスティックです。
+- **秘密情報の非出力保証**: スキャナーは秘密鍵本文、トークン、パスワード等の機微情報を一切読み込まず、出力にも含めません（秘密鍵は存在検知のみ行います）。
+- **非侵襲的なTLS観測**: TLSスキャンは通常の公開TLSハンドシェイクを1回のみ行い、不正なプロービングやダウングレード攻撃等は一切行いません。
+- **レポートの共有**: ローカルスキャンのレポート（`reports/`）には社内ファイルの相対パス名が含まれ得るため、`.gitignore` で除外されています。外部共有前に内容を確認してください。
+- **脆弱性報告**: 脆弱性やセキュリティ上の懸念を発見された場合は、公開Issueではなく [SECURITY.md](SECURITY.md) に記載の連絡先へご連絡ください。
 
-[設計](docs/architecture.md) · [参照資料](docs/references.md)
+[設計](docs/architecture.md) · [参照資料](docs/references.md) · [行動規範](CODE_OF_CONDUCT.md) · [貢献ガイド](CONTRIBUTING.md)
 
 [実装サマリー・検証結果・各PhaseのGit履歴](IMPLEMENTATION_SUMMARY.md)
 

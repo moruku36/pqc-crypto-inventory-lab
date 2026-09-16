@@ -1,5 +1,9 @@
 # Architecture
 
+## 全体構成（Architecture Overview）
+
+![PQC Crypto Inventory Lab — Architecture Overview](images/architecture-overview.jpg)
+
 ## まず、全体の流れ
 
 このツールは「情報を集める」「その意味を分類する」「結果をまとめる」の3段階で動きます。
