@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scenario": "Synthetic service; descriptions are exercise assumptions, not scanner observations.",
+  "cases": [
+    {"path": "app/transport.py", "algorithm": "X25519", "role": "communication key exchange", "runtime": "declared active", "detected": false, "reason": "Python dictionary values are outside the current AST call detector."},
+    {"path": "app/signing.py", "algorithm": "RSA", "role": "document signing", "runtime": "declared active", "detected": true, "reason": "The Python cryptography API call is detected; signing use is scenario context."},
+    {"path": "certs/service.crt", "algorithm": "RSA", "role": "service certificate public key", "runtime": "declared active", "detected": true, "reason": "The X.509 public key is parsed; deployment and trust are not verified."},
+    {"path": "config/transport.json", "algorithm": "X25519", "role": "communication key exchange setting", "runtime": "declared active", "detected": true, "reason": "A recognized configuration key is detected; it does not prove negotiation."},
+    {"path": "config/transport.json", "algorithm": "AES-256", "role": "communication and stored-data cipher settings", "runtime": "declared active", "detected": true, "expected_count": 2, "reason": "Two settings are detected; the scanner cannot link either to a data set."},
+    {"path": "data/archive.json", "algorithm": "AES-256", "role": "stored data; synthetic 12-year retention", "runtime": "declared active", "detected": false, "reason": "The archive description is not an algorithm configuration key."},
+    {"path": "retired/old_signing.py", "algorithm": "SHA-1", "role": "retired signing helper", "runtime": "declared unused", "detected": true, "reason": "The API call is detected although the scanner cannot establish reachability."}
+  ]
+}

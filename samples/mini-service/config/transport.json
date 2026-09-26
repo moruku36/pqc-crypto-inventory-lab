@@ -1,0 +1,4 @@
+{
+  "tls": {"key_exchange": "X25519", "cipher": "AES-256"},
+  "data_store": {"cipher": "AES-256"}
+}
