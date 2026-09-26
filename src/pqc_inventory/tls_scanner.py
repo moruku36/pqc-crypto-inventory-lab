@@ -1,8 +1,12 @@
 """A single verified public TLS handshake; no probing or downgrade attempts."""
 
+import hashlib
+import platform
 import re
 import socket
 import ssl
+import sys
+from datetime import UTC, datetime
 from typing import Any
 
 from cryptography import x509
@@ -90,6 +94,8 @@ def scan_tls(host: str, port: int = 443, timeout: float = 5.0) -> dict[str, Any]
                 cipher = cipher_tuple[0] if cipher_tuple else "UNKNOWN"
                 version = connection.version() or "UNKNOWN"
                 der = connection.getpeercert(binary_form=True)
+                peer_ip = connection.getpeername()[0]
+                observed_at_utc = datetime.now(UTC).isoformat()
         if not der:
             raise ScanError("CERTIFICATE_UNAVAILABLE")
         certificate = certificate_info(der)
@@ -111,6 +117,17 @@ def scan_tls(host: str, port: int = 443, timeout: float = 5.0) -> dict[str, Any]
             break
     return {
         "schema_version": 1, "target": host, "port": port,
+        "observation": {
+            "observed_at_utc": observed_at_utc,
+            "peer_ip": peer_ip,
+            "timeout_seconds": timeout,
+            "sni_host": host,
+            "certificate_verification": "system trust, hostname and validity checked",
+            "python_version": ".".join(str(n) for n in sys.version_info[:3]),
+            "openssl_version": ssl.OPENSSL_VERSION,
+            "os_family": platform.system(),
+            "leaf_certificate_sha256": hashlib.sha256(der).hexdigest(),
+        },
         "tls_version": assess(version).to_dict(), "cipher_suite": cipher,
         "symmetric_cipher": assess(encryption).to_dict(), "certificate": certificate,
         "cipher_hash": assess(cipher_hash).to_dict(),

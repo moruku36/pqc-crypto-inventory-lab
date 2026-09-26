@@ -38,6 +38,8 @@ def priority(item: dict[str, Any]) -> str:
 
 
 def replacement(algorithm: str) -> str:
+    if algorithm in {"ML-KEM", "ML-DSA", "SLH-DSA"}:
+        return "Confirm implementation, protocol support, interoperability and deployment."
     if algorithm in {"RSA", "ECC"}:
         return ("Confirm purpose first: key establishment may use ML-KEM or a supported hybrid; "
                 "signatures may use ML-DSA or SLH-DSA. Not a drop-in replacement.")

@@ -7,8 +7,10 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from pqc_inventory import __version__
+from pqc_inventory.compare import compare_directories
 from pqc_inventory.directory_scanner import scan_directory
 from pqc_inventory.report import create_report
+from pqc_inventory.review import create_review
 from pqc_inventory.scoring import score_inventory
 from pqc_inventory.tls_scanner import ScanError, scan_tls
 
@@ -33,6 +35,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     score = commands.add_parser("score", help="Evidence-based Crypto Agility score")
     score.add_argument("path", type=Path)
     score.add_argument("--max-files", type=int, default=10000)
+    review = commands.add_parser("review", help="Export a blank human review worksheet")
+    review.add_argument("path", type=Path)
+    review.add_argument("--output", type=Path, default=Path("reports/review.csv"))
+    review.add_argument("--max-files", type=int, default=10000)
+    compare = commands.add_parser("compare", help="Compare two static directory inventories")
+    compare.add_argument("before", type=Path)
+    compare.add_argument("after", type=Path)
+    compare.add_argument("--max-files", type=int, default=10000)
     args = parser.parse_args(argv)
     try:
         if args.command == "tls":
@@ -45,6 +55,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         elif args.command == "score":
             inventory = scan_directory(args.path, args.max_files)
             print(json.dumps(score_inventory(args.path, inventory), indent=2))
+        elif args.command == "review":
+            output = create_review(args.path, args.output, args.max_files)
+            print(json.dumps({"event": "review_created", "output": str(output)}))
+        elif args.command == "compare":
+            print(json.dumps(compare_directories(args.before, args.after, args.max_files), indent=2))
         else:
             parser.print_help()
     except ScanError as error:

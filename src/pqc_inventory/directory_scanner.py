@@ -24,7 +24,8 @@ TEXT_SUFFIXES = {".py", ".json", ".toml", ".yaml", ".yml", ".ini", ".conf", ".cf
                  ".crt", ".cer", ".pub", ".key"}
 ALIASES = {"rsa": "RSA", "ecdsa": "ECDSA", "ecdh": "ECDH", "ed25519": "Ed25519",
            "x25519": "X25519", "sha1": "SHA-1", "sha256": "SHA-256",
-           "sha384": "SHA-384", "sha512": "SHA-512", "aes": "AES", "aes256": "AES-256"}
+           "sha384": "SHA-384", "sha512": "SHA-512", "aes": "AES", "aes256": "AES-256",
+           "mlkem": "ML-KEM", "mldsa": "ML-DSA", "slhdsa": "SLH-DSA"}
 PRIVATE_HEADER = re.compile(rb"-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----")
 CONFIG_ALGORITHM = re.compile(
     r"^\s*[\"']?(?:algorithm|cipher|hash|signature_algorithm|key_exchange)[\"']?\s*[:=]\s*"

@@ -21,3 +21,4 @@
 実行方法は[操作ガイド](../docs/getting-started.md)にあります。
 
 検出できるものと限界を比べる演習は[正解つき模擬システム](mini-service/README.md)にあります。
+記入例は[運用確認票のサンプル](mini-service-review-example.csv)、変更案は[移行前後の比較演習](../docs/migration-exercise.md)にあります。

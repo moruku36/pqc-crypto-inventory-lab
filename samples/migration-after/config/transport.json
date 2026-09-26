@@ -1,0 +1,5 @@
+{
+  "tls": {"key_exchange": "ML-KEM", "cipher": "AES-256"},
+  "data_store": {"cipher": "AES-256"},
+  "signing": {"signature_algorithm": "ML-DSA"}
+}

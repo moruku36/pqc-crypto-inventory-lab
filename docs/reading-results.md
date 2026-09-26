@@ -108,10 +108,18 @@ TLSの結果は「今回の1回の接続で観測できたもの」です。
 | `certificate.signature` | 証明書への署名の方式。上の公開鍵方式とは別の項目 |
 | `certificate.expiration` | 証明書の期限。`+00:00`はUTC時刻であることを表す |
 | `key_exchange` | 共有する秘密を決める方式について、取得できた情報 |
+| `observation.observed_at_utc` | 今回のTLS接続を観測したUTC時刻 |
+| `observation.peer_ip` | 今回接続した相手のIP。DNSや接続経路が変われば異なる |
+| `observation.sni_host` | TLS接続で指定したホスト名 |
+| `observation.timeout_seconds` | ソケット接続に指定した秒数。DNS処理を含む厳密な上限ではない |
+| `observation.python_version` / `openssl_version` / `os_family` | 観測に使った実行環境 |
+| `observation.leaf_certificate_sha256` | 受け取った葉証明書の識別用ハッシュ。証明書の安全性判定ではない |
 
 `TLS_AES_128_GCM_SHA256`という名前ならAES-128やSHA-256は読み取れますが、
 TLS 1.3の鍵交換方式まではこの名前から分かりません。
 また、証明書がRSAでも、通信本文をRSAで暗号化しているとは限りません。
+別の日や環境の結果と比較するときは、まず`observation`の条件を照合します。
+同じホスト名でもIP・証明書・接続結果は変わり得ます。古い[samples/tls-github.json](../samples/tls-github.json)には追加前の観測項目がありません。
 
 ## レポートの9つの章
 

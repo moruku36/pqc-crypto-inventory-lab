@@ -28,3 +28,5 @@ pqc-scan directory ./samples/mini-service
 3. 保存データの保持期間が長いという申告を確かめるには、どの運用資料や担当者が必要ですか。
 
 正解表の`runtime`と`role`は演習用の申告です。ツールによる実測・検証結果ではありません。`detected`はこの固定フィクスチャに対する期待値で、[回帰テスト](../../tests/test_mini_service.py)が差異を確認します。
+
+続きは[運用確認票](../../docs/review-workflow.md)と[移行前後の比較演習](../../docs/migration-exercise.md)に進んでください。

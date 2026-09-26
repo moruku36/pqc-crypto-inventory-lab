@@ -39,6 +39,7 @@ def test_conditional_replacements() -> None:
     assert "key establishment" in replacement("ECDH")
     assert "signatures" in replacement("ECDSA")
     assert "no automatic replacement" in replacement("AES-256")
+    assert "interoperability" in replacement("ML-KEM")
 
 
 def test_incomplete_report(tmp_path: Path) -> None:

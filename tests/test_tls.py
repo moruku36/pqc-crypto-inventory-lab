@@ -65,3 +65,23 @@ def test_tls_errors_are_sanitized(error: OSError, code: str) -> None:
             scan_tls("example.com")
     assert code in str(failure.value)
     assert "SECRET_CANARY" not in str(failure.value)
+
+
+def test_tls_observation_records_reproducibility_context() -> None:
+    with (patch("pqc_inventory.tls_scanner.socket.create_connection") as connect,
+          patch("pqc_inventory.tls_scanner.ssl.create_default_context") as context,
+          patch("pqc_inventory.tls_scanner.certificate_info", return_value={})):
+        connection = context.return_value.wrap_socket.return_value.__enter__.return_value
+        connection.cipher.return_value = ("TLS_AES_256_GCM_SHA384", "TLSv1.3", 256)
+        connection.version.return_value = "TLSv1.3"
+        connection.getpeercert.return_value = b"synthetic certificate"
+        connection.getpeername.return_value = ("192.0.2.1", 443)
+        result = scan_tls("example.com")
+    observation = result["observation"]
+    assert observation["peer_ip"] == "192.0.2.1"
+    assert observation["sni_host"] == "example.com"
+    assert observation["timeout_seconds"] == 5.0
+    assert observation["leaf_certificate_sha256"]
+    assert observation["observed_at_utc"].endswith("+00:00")
+    assert connect.called
+    assert result["key_exchange"]["status"] == "UNKNOWN"

@@ -21,7 +21,11 @@ def assess(value: str) -> Assessment:
         return Assessment(value, "QUANTUM_VULNERABLE",
                           "Classical factoring/discrete-log cryptography is vulnerable to "
                           "Shor's algorithm on a sufficiently capable quantum computer.")
-    if name in {"ML-KEM", "ML-DSA", "SLH-DSA", "AES-256", "SHA-384", "SHA-512"}:
+    if name in {"ML-KEM", "ML-DSA", "SLH-DSA"}:
+        return Assessment(value, "SAFE", "Standardized post-quantum algorithm family; "
+                          "parameter set, implementation, protocol and deployment are unverified. "
+                          "SAFE is an algorithm-level screening label only.")
+    if name in {"AES-256", "SHA-384", "SHA-512"}:
         return Assessment(value, "SAFE", "No known efficient quantum break of this algorithm "
                           "at the stated parameters. SAFE is an algorithm-level screening label; "
                           "it does not validate implementation, mode, protocol, or key management.")

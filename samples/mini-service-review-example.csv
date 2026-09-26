@@ -1,0 +1,9 @@
+﻿finding_id,path,line,kind,algorithm,scanner_status,owner,purpose,runtime_state,data_retention_years,exposure,verification_source,next_action
+F001,app/signing.py,7,python_api_call,RSA,QUANTUM_VULNERABLE,exercise service team,document signing,declared active,,internal,exercise scenario only; needs verification,confirm signing callers
+F002,certs/service.crt,,x509_public_key,RSA,QUANTUM_VULNERABLE,exercise service team,service certificate,declared active,,public endpoint,exercise scenario only; needs deployment check,confirm installed certificate
+F003,config/transport.json,,configuration,X25519,QUANTUM_VULNERABLE,exercise service team,communication key exchange setting,declared active,,public endpoint,exercise scenario only; needs TLS observation,confirm negotiated group
+F004,config/transport.json,,configuration,AES-256,SAFE,exercise service team,AES setting; exact mapping unknown,unknown,,unknown,configuration only,map setting to traffic or archive
+F005,config/transport.json,,configuration,AES-256,SAFE,exercise service team,AES setting; exact mapping unknown,unknown,,unknown,configuration only,map setting to traffic or archive
+F006,retired/old_signing.py,7,python_api_call,SHA-1,UNKNOWN,exercise service team,retired signing helper,declared unused,,internal,exercise scenario only; needs usage check,verify reachability and remove if unused
+M001,app/transport.py,,,X25519,NOT_DETECTED,exercise service team,Python dictionary missed by scanner,declared active,,,exercise scenario only; needs verification,confirm implementation and deployment
+M002,data/archive.json,,,AES-256,NOT_DETECTED,exercise service team,synthetic archive; 12-year retention declaration,declared active,12,,exercise scenario only; needs verification,confirm implementation and deployment

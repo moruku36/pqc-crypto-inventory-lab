@@ -26,6 +26,7 @@
 実行せずに確認する場合は、[付属レポート](samples/crypto_inventory_scored.md)を開けます。
 
 操作に慣れたら、[正解つき模擬システム](samples/mini-service/README.md)で検出と見落としを比較できます。
+[運用確認票](docs/review-workflow.md)を作り、[移行前後の比較演習](docs/migration-exercise.md)にも進めます。
 
 ## なぜ暗号を調べるのか
 
@@ -37,7 +38,7 @@
 この一覧作りを**暗号の棚卸し（Crypto Inventory）**と呼びます。
 本ツールは、その調査の手掛かりを集めます。用途や稼働状態は、結果を見た人が追加確認します。
 
-## 4つの機能
+## 6つの機能
 
 コマンドは、ターミナルという文字で操作する画面に入力します。
 `pqc-scan`の後ろの単語で、実行する機能を選びます。
@@ -48,6 +49,8 @@
 | `pqc-scan score ./samples/project` | 暗号を変更しやすい設計・運用の根拠を整理する | 10項目の点数と説明 |
 | `pqc-scan report ./samples/project` | 棚卸しと採点を読み物にまとめる | Markdown形式のレポート |
 | `pqc-scan tls github.com` | Webサイトとの暗号通信を確認する | 接続時に選ばれた方式や証明書情報 |
+| `pqc-scan review ./samples/mini-service` | 検出結果を人が確認するための欄を作る | CSV形式の確認票 |
+| `pqc-scan compare ./samples/mini-service ./samples/migration-after` | 変更前後の検出根拠を比較する | 追加・消失・残存した根拠 |
 
 ```mermaid
 flowchart TD
@@ -60,6 +63,8 @@ flowchart TD
         cmdDir["pqc-scan directory"]
         cmdScore["pqc-scan score"]
         cmdReport["pqc-scan report"]
+        cmdReview["pqc-scan review"]
+        cmdCompare["pqc-scan compare"]
         cmdTLS["pqc-scan tls"]
     end
 
@@ -67,12 +72,16 @@ flowchart TD
         JsonInv["暗号インベントリ (JSON)"]
         JsonScore["アジリティ採点 (JSON)"]
         MdReport["移行レビュー報告書 (Markdown)"]
+        CsvReview["運用確認票 (CSV)"]
+        JsonCompare["根拠の変更前後 (JSON)"]
         JsonTLS["TLS接続・証明書情報 (JSON)"]
     end
 
     Dir --> cmdDir --> JsonInv
     Dir --> cmdScore --> JsonScore
     Dir --> cmdReport --> MdReport
+    Dir --> cmdReview --> CsvReview
+    Dir --> cmdCompare --> JsonCompare
     Web --> cmdTLS --> JsonTLS
 ```
 
@@ -164,6 +173,7 @@ DNS解決にはOS側の待ち時間があり、`--timeout`は全処理の厳密�
 SAFEは限定的なアルゴリズム評価で、システム全体の安全性を示しません。
 SHA-1の古典的な弱点と量子脆弱性は区別します。CRL/OCSP検証は行いません。
 実行例は`samples/tls-github.json`。ライブ値は実行日時・経路で変化します。
+新しいTLS結果には観測時刻、接続先IP、実行環境、葉証明書のハッシュを含めます。項目の意味は[結果の読み方](docs/reading-results.md#tlsの結果を読む)を参照してください。
 Phase 1検証: pytest 16件、Ruff、mypy成功。
 
 ## ディレクトリ棚卸し（Phase 2）

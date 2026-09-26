@@ -1,0 +1,4 @@
+{
+  "dataset": "synthetic-customer-archive",
+  "description": "Fictional records retained for 12 years; encrypted at rest with the data_store setting. No real records are included."
+}
