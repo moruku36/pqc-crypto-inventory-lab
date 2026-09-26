@@ -11,7 +11,6 @@ from pqc_inventory.directory_scanner import scan_directory
 from pqc_inventory.review import create_review, csv_cell, review_rows
 from pqc_inventory.tls_scanner import ScanError
 
-
 SAMPLES = Path(__file__).resolve().parents[1] / "samples"
 
 

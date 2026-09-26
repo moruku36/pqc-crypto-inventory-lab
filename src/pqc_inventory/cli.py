@@ -59,7 +59,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             output = create_review(args.path, args.output, args.max_files)
             print(json.dumps({"event": "review_created", "output": str(output)}))
         elif args.command == "compare":
-            print(json.dumps(compare_directories(args.before, args.after, args.max_files), indent=2))
+            comparison = compare_directories(args.before, args.after, args.max_files)
+            print(json.dumps(comparison, indent=2))
         else:
             parser.print_help()
     except ScanError as error:
