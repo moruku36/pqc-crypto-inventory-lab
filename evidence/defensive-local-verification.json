@@ -1,0 +1,42 @@
+{
+  "recorded_at_utc": "2026-10-07T12:57:46.119564+00:00",
+  "environment": "WSL Ubuntu 24.04; isolated Python 3.12.3",
+  "base_commit": "b5f3b71c2ea528e68341e9cd595abc0794cb1660",
+  "ci_for_this_change": "not run; local-only change",
+  "results": [
+    {
+      "command": "python -m pytest -q tests",
+      "exit_code": 0,
+      "output": "...........................................................              [100%]\n59 passed in 2.27s\n"
+    },
+    {
+      "command": "python -m ruff check src tests",
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": "python -m mypy src tests",
+      "exit_code": 0,
+      "output": "Success: no issues found in 17 source files\n"
+    }
+  ],
+  "tested_python_sha256": {
+    "src/pqc_inventory/__init__.py": "f1ae79cfa48021cca85e3a3e153586048b13949dbf7014738c58fe3173284a2c",
+    "src/pqc_inventory/classification.py": "a9d78ea4275710da1d824f337d92750085027a364bb495a3656c2fc6dc38cc8e",
+    "src/pqc_inventory/cli.py": "7512aaca01b6c3abb2f640bf1c8c3c528a080508c5b01c80abb4f0cbe78592a0",
+    "src/pqc_inventory/compare.py": "7440b04aee2eca1770657461e7e1aedb5b00859c0b0dc1280b60bc23dfb14180",
+    "src/pqc_inventory/directory_scanner.py": "554b2470e65c3a5e85bcf0e6ae8814101bf6c6687c5775cc1b6aa41f162f1c50",
+    "src/pqc_inventory/report.py": "2494a3e204acc2c5526b78ce86328fe3f6c7eb37a4f66b3e515d92cf9afa87cf",
+    "src/pqc_inventory/review.py": "e04b6f03c1eb0ab29b433ca832a277efe84eb80763fd6b503386b177b326a0da",
+    "src/pqc_inventory/scoring.py": "64bd61ead4b1471e6e65154bf0cb6b15a0c50542a53db0ef6310213e7375b259",
+    "src/pqc_inventory/tls_scanner.py": "dc31aab91d0534890316626527d19afc28f30da528246c158c7d1678dafb36e6",
+    "tests/test_cli.py": "0d31d4dfa1973d4994780fd44f73e3f7cef4252f070a1156823eb1b550437ff1",
+    "tests/test_defensive_boundaries.py": "bff077fb3b7aca18944030119d533a927ce20e78f58c67a8734426d8471074a2",
+    "tests/test_directory.py": "962b7a46827f303b15d3170cf9323ec5dc1d8b5184b6f81141cf989973d80a97",
+    "tests/test_mini_service.py": "3db199fe1ee6d1f5e0b99793398599f2621d36bfcabe007db15e8ed47d763299",
+    "tests/test_report.py": "fdd1ee519163b6dd13535de5fab6346fbabb156709cf85dbaa8b8c9738e01139",
+    "tests/test_scoring.py": "eff419110eda87a19c3d4e0b9e4b8d5078a0b41da12622ee910c2a8745d6d212",
+    "tests/test_tls.py": "4ba7f3545bc65861f192f4b427e713dd0c9d415ba469bb8800a896f75ad992b0",
+    "tests/test_workflows.py": "d82b474819146df32141148479eb543af067128ee85bef757b7bfbc8daf4587b"
+  }
+}
