@@ -15,6 +15,6 @@ All fixtures are synthetic and temporary. The new regression module blocks socke
 
 ## Reproduction and revision
 
-Base commit: `b5f3b71c2ea528e68341e9cd595abc0794cb1660`. Implementation and test evidence commit: `51a8563fa102847fa2a129f183cf2a3672c78eca` (local only). The documentation commit follows it. CI for these changes has not run; earlier green CI is not evidence for this revision. Nothing was pushed or merged.
+Base commit: `b5f3b71c2ea528e68341e9cd595abc0794cb1660`. Implementation and test evidence commit: `51a8563fa102847fa2a129f183cf2a3672c78eca` (implementation snapshot). This ledger records local validation before publication. No CI had run for these changes at that point; earlier green CI is not evidence for this revision. Subsequent publication and CI results are recorded in the pull request and its checks.
 
 Commands run from the repository root with declared dependencies in an isolated WSL Ubuntu 24.04 Python 3.12 environment. Exact command output, UTC time and SHA-256 hashes of tested Python files are in [the local verification record](../evidence/defensive-local-verification.json). Use `git log -2 --oneline` to identify both local commits. Model/effort selection could not be independently inspected; Astra medium execution is not claimed.
