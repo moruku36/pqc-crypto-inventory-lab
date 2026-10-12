@@ -2,6 +2,16 @@
 
 スキャナーの検出結果から、人が調べる項目をCSVに書き出します。
 
+## 棚卸しから判断へ（論文レビュー、2026-10-12）
+
+[PQC discovery論文の読書ノート](pqc-discovery-governance.ja.md)（[English](pqc-discovery-governance.md)）では、証拠・責任者・次の判断を継続的に残す方法を検討しています。まず既存の記入例を読み、責任未確定・証拠不足・供給者待ちを区別する手作業の演習が次の候補です。論文と同じ調査やQER実装を行った記録ではありません。
+
+現行CSVの列は変更していません。`exposure`の公開範囲・文脈と、論文の機密期間＋移行期間による時間判定は別に記録します。`data_retention_years`だけで機密期間を断定せず、`owner`を業務の説明責任者・技術担当に補い、`verification_source`には根拠とその日付・範囲を残してください。追加情報は非公開の補足票で管理し、静的検出・演習上の申告・不明を分けます。
+
+レビュー時は、見落とし資産が手動追加されているか、弱い証拠に調査の次の対応があるか、等号・欠損値の扱いが明示されているか、判断を変えた理由を別の人が追えるかを確認します。数値の重みやWave区分の自動採用は、[原論文の不整合と最小検証案](pqc-discovery-governance.ja.md)を確認した後の検討事項です。
+
+## 現在のCSVを使う
+
 ```sh
 pqc-scan review ./samples/mini-service --output reports/mini-service-review.csv
 ```
