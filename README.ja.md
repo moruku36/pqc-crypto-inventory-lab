@@ -4,6 +4,10 @@
 
 ソースコード、設定、対応するTLS接続先の暗号を棚卸しし、調査結果と耐量子暗号への移行検討レポートを作る学習用ツールです。
 
+## 論文を今後の改善に活用する
+
+[PQC discovery論文の概要・レビュー](docs/pqc-discovery-governance.ja.md)（[English](docs/pqc-discovery-governance.md)、arXiv:2605.16549v1、確認日2026-10-12）を追加しました。冒頭は人・PMO向けの短い説明、下部は条件・限界・現ラボとの対応です。証拠・責任者・供給者の制約を整理する、既存サンプルでの手作業検証を提案しています。論文のケーススタディの再現やQER機能の実装は行っていません。[運用確認票](docs/review-workflow.md)と[出典索引](docs/references.md)からも参照できます。
+
 ---
 
 # PQC Crypto Inventory Lab

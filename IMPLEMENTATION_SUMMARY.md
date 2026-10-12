@@ -118,6 +118,8 @@ pqc-scan report ./samples/project --output reports/crypto_inventory.md
 
 ## Future Improvements
 
+2026-10-12研究レビュー追記：[PQC discovery論文](docs/pqc-discovery-governance.ja.md)（[English](docs/pqc-discovery-governance.md)）を、証拠・責任者・供給者制約の管理を改善する候補として整理しました。最小の次の検証は、既存模擬システムの記入例と正解表を使い、未知値・時間判定の境界・判断の出典を別のレビュー担当が追えるか確認する手作業演習です。未実施であり、QER・数式・CSV列変更・新規scanを実装または検証した記録ではありません。
+
 依存ロック・SBOM、言語別解析、用途/所有者/保存期間のモデル化、認可された運用証拠の検証、
 TLSグループ取得API、証明書チェーン/失効評価、対象環境でのPQC互換性試験を検討。
 

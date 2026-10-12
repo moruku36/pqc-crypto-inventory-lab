@@ -4,6 +4,10 @@
 
 An educational tool for inventorying cryptography in source code, configuration, and supported TLS endpoints, then producing findings and migration-planning reports for post-quantum readiness.
 
+## Research into practice
+
+The [PQC discovery paper review](docs/pqc-discovery-governance.md) ([日本語](docs/pqc-discovery-governance.ja.md), arXiv:2605.16549v1, reviewed 2026-10-12) explains how evidence, accountable owners and supplier constraints can turn findings into decisions. It starts with a short PMO overview and proposes an offline exercise using existing samples. The case study has not been reproduced here; QER scoring and register extensions are not implemented. Continue through the [human review workflow](docs/review-workflow.md) and [source index](docs/references.md).
+
 ## Start learning
 
 Use the supplied sample and reports to learn how crypto inventory findings become migration-planning inputs. The project includes TLS inspection, directory inventory, migration reports, a crypto-agility score, and security-specialist learning notes.
