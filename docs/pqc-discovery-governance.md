@@ -28,7 +28,7 @@ Equation (2), p. 12, proposes `0.4 × criticality + 0.4 × time exposure + 0.2 �
 Reviewer observations requiring resolution before automation:
 
 - Table 1, p. 11, calls QER-010 (8+3>8) Borderline and QER-006 (7+1=8) No; no numerical Borderline rule is specified. Equality and missing inputs need an explicit local policy.
-- QER-007 has high criticality, Yes exposure and Low confidence: Eq. (2) yields 2.8 (Table 2 Wave 1), while Table 1 assigns Wave 2. Governance overrides may explain this, but an asset-level override reason is not provided.
+- QER-007 has High/Medium/High C/I/A, Yes exposure and Low confidence. If High is used as its scalar criticality, Eq. (2) yields 2.8 (Table 2 Wave 1), while Table 1 assigns Wave 2. The aggregation rule is unspecified; governance overrides may also explain this, but an asset-level override reason is not provided.
 - The C/I/A triple is reduced to a scalar without a general aggregation rule. The worked KYC example chooses 3. Section cross-references/numbering and some bibliography pointers are inconsistent; use PDF page and equation/table identifiers to locate claims.
 
 ## Mapping to this inventory lab
