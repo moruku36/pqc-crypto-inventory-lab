@@ -277,4 +277,4 @@ Phase 0〜5のGitHub Actionsはすべて成功確認済みです。
 | P2 | Sidekickの調査計画と連携し、ローカルモデルのソースのみ/プロファイル併用の負荷箇所提案を比較する | 評価用に隠した実測と関数参照で照合。モデル・量子化・プロンプトを記録。ローカルモデルの適性は未検証で、LLM順位は判断支援に留める |
 | P3 | アプリの実測限界が根拠になった場合だけ、FPGA演算1件を探索。AI Governance Controlで独立した参照一致検証を行う | 遅延・処理量・面積/電力に加え転送/統合コストを比較。機能一致・定時間性・サイドチャネルを別に確認し、未実施は不明とする。生成した暗号をそのまま本番採用しない |
 
-**次の調査目標：** 手入力の性能台帳例と再現可能なCPU測定計画を作ります。現スキャナーの言語対応拡大や量子安全性の認証を意味するものではありません。[出典索引](docs/references.md)、[運用確認票](docs/review-workflow.md)、[AI Governance Controlの研究計画](https://github.com/moruku36/ai-engineering-factory/blob/main/README.ja.md)と合わせて扱います。
+**次の調査目標：** 手入力の性能台帳例と再現可能なCPU測定計画を作ります。現スキャナーの言語対応拡大や量子安全性の認証を意味するものではありません。[出典索引](docs/references.md)、[運用確認票](docs/review-workflow.md)、[AI Governance Controlの研究計画](https://github.com/moruku36/ai-governance-control/blob/main/README.ja.md)と合わせて扱います。
