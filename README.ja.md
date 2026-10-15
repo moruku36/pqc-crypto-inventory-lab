@@ -6,6 +6,8 @@
 
 ## 論文を今後の改善に活用する
 
+[量子アニーリングとRSA整数分解の参考文献候補](docs/dwave-annealing-rsa-reference.ja.md)を記録しました。紹介記事から公式PDFへ導線を付け、本文未読・書誌未確定・追試未実施を明記しています。実用RSA解読や量子優位の証明として扱わず、実装・採点は変更していません。
+
 [CAMM評価論文の知見と改善案](docs/camm-practical-evaluation.ja.md)（arXiv:2604.12428v1、確認日2026-10-15）では、評価範囲・判定基準・根拠を分ける手作業評価票を提案しています。現行の独自スコアはCAMM成熟度ではなく、評価票や新機能の実装・追試は未実施です。
 
 [PQC discovery論文の概要・レビュー](docs/pqc-discovery-governance.ja.md)（[English](docs/pqc-discovery-governance.md)、arXiv:2605.16549v1、確認日2026-10-12）を追加しました。冒頭は人・PMO向けの短い説明、下部は条件・限界・現ラボとの対応です。証拠・責任者・供給者の制約を整理する、既存サンプルでの手作業検証を提案しています。論文のケーススタディの再現やQER機能の実装は行っていません。[運用確認票](docs/review-workflow.md)と[出典索引](docs/references.md)からも参照できます。
