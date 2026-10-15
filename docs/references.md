@@ -15,6 +15,10 @@
 
 [Practical Evaluation of the Crypto-Agility Maturity Model](https://arxiv.org/abs/2604.12428v1)、v1、2026-04-14提出、[PDF](https://arxiv.org/pdf/2604.12428v1)。[ラボの改善案](camm-practical-evaluation.ja.md)と[論文サーベイ](https://github.com/moruku36/independent-cs-research-2026/blob/main/surveys/collection-v2/2026-camm-practical-evaluation.md)を参照。既存の独自スコアをCAMM成熟度へ変換せず、新機能・追試は未実施として扱います。
 
+## 暗号解析の参考文献候補（2026-10-15記録、一次本文未確認）
+
+[量子アニーリングとRSA整数分解の参考ノート](dwave-annealing-rsa-reference.ja.md)。[GIGAZINE記事](https://gigazine.net/news/20241015-rsa-encryption-quantum-computer/)が示す[公式PDF](http://cjc.ict.ac.cn/online/onlinepaper/wc-202458160402.pdf)は今回取得できず、本文・正式書誌・DOIは未確認。実用RSA-2048解読や量子優位の実証としては扱わず、実装・採点へ採用していません。
+
 ## 原文を読む前に
 
 初めから規格全文を読む必要はありません。まず[用語の早見表](glossary.md)と
