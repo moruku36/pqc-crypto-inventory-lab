@@ -11,6 +11,10 @@
 
 論文の式・Wave区分を本ラボの採点へ採用したわけではありません。原文全文は版固定リンクで参照し、公開リポジトリには独自の要約・レビューを保存します。以下の規格確認日は従来の記録のままです。
 
+## CAMM評価研究（2026-10-15確認）
+
+[Practical Evaluation of the Crypto-Agility Maturity Model](https://arxiv.org/abs/2604.12428v1)、v1、2026-04-14提出、[PDF](https://arxiv.org/pdf/2604.12428v1)。[ラボの改善案](camm-practical-evaluation.ja.md)と[論文サーベイ](https://github.com/moruku36/independent-cs-research-2026/blob/main/surveys/collection-v2/2026-camm-practical-evaluation.md)を参照。既存の独自スコアをCAMM成熟度へ変換せず、新機能・追試は未実施として扱います。
+
 ## 原文を読む前に
 
 初めから規格全文を読む必要はありません。まず[用語の早見表](glossary.md)と
