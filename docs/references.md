@@ -11,6 +11,14 @@
 
 論文の式・Wave区分を本ラボの採点へ採用したわけではありません。原文全文は版固定リンクで参照し、公開リポジトリには独自の要約・レビューを保存します。以下の規格確認日は従来の記録のままです。
 
+## Google Cloud記事とGemini Notebook（2026-10-18確認）
+
+| 資料 | 保存したノート | このプロジェクトとの関係 |
+|---|---|---|
+| [Cloud CISO Perspectives: New Gemini Notebook can help CISOs and policymakers prepare for PQC](https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-new-gemini-notebook-can-help-cisos-policymakers-prepare-for-pqc)、Stephanie Kiel、2026-10-14公開 | [日本語](gemini-pqc-notebook-readiness.ja.md) / [English](gemini-pqc-notebook-readiness.md) | 記事の事実（ノートブックの説明、CISO向け4手順、Googleの2029年目標）と、棚卸し・優先度付け・説明資料への未実装の提案を分離。ノートブック本体は未確認 |
+
+関連して確認した一次資料：[Googleの移行タイムライン](https://blog.google/innovation-and-ai/technology/safety-security/cryptography-migration-timeline/)（2026-03-25）、[RSA-2048の見積り](https://arxiv.org/abs/2505.15917)（概要のみ、arXiv v1）、[ECDLP-256の見積り](https://arxiv.org/abs/2603.28846)（概要のみ、arXiv v2）、[2025年のCISO向け記事](https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-prepare-early-for-PQC-resilient-cryptographic-threats)（2025-02-28）。2029年はGoogle自身の計画で、規格上の期限ではありません。
+
 ## CAMM評価研究（2026-10-15確認）
 
 [Practical Evaluation of the Crypto-Agility Maturity Model](https://arxiv.org/abs/2604.12428v1)、v1、2026-04-14提出、[PDF](https://arxiv.org/pdf/2604.12428v1)。[ラボの改善案](camm-practical-evaluation.ja.md)と[論文サーベイ](https://github.com/moruku36/independent-cs-research-2026/blob/main/surveys/collection-v2/2026-camm-practical-evaluation.md)を参照。既存の独自スコアをCAMM成熟度へ変換せず、新機能・追試は未実施として扱います。

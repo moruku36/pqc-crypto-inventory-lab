@@ -12,6 +12,8 @@ The [CAMM evaluation note](docs/camm-practical-evaluation.ja.md) (Japanese with 
 
 The [PQC discovery paper review](docs/pqc-discovery-governance.md) ([日本語](docs/pqc-discovery-governance.ja.md), arXiv:2605.16549v1, reviewed 2026-10-12) explains how evidence, accountable owners and supplier constraints can turn findings into decisions. It starts with a short PMO overview and proposes an offline exercise using existing samples. The case study has not been reproduced here; QER scoring and register extensions are not implemented. Continue through the [human review workflow](docs/review-workflow.md) and [source index](docs/references.md).
 
+The [Google PQC Gemini Notebook note](docs/gemini-pqc-notebook-readiness.md) ([日本語](docs/gemini-pqc-notebook-readiness.ja.md), Google Cloud Blog published 2026-10-14, reviewed 2026-10-18) separates what Google's article states from this lab's proposals for inventory, migration prioritization and CISO/engineer briefings. The notebook itself could not be inspected; its behavior is described only as the article states it. The proposals are not implemented.
+
 ## Start learning
 
 Use the supplied sample and reports to learn how crypto inventory findings become migration-planning inputs. The project includes TLS inspection, directory inventory, migration reports, a crypto-agility score, and security-specialist learning notes.
