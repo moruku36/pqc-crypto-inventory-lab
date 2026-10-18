@@ -12,6 +12,8 @@
 
 [PQC discovery論文の概要・レビュー](docs/pqc-discovery-governance.ja.md)（[English](docs/pqc-discovery-governance.md)、arXiv:2605.16549v1、確認日2026-10-12）を追加しました。冒頭は人・PMO向けの短い説明、下部は条件・限界・現ラボとの対応です。証拠・責任者・供給者の制約を整理する、既存サンプルでの手作業検証を提案しています。論文のケーススタディの再現やQER機能の実装は行っていません。[運用確認票](docs/review-workflow.md)と[出典索引](docs/references.md)からも参照できます。
 
+[GoogleのPQC向けGemini Notebookの解説](docs/gemini-pqc-notebook-readiness.ja.md)（[English](docs/gemini-pqc-notebook-readiness.md)、Google Cloud Blog公開2026-10-14、確認日2026-10-18）を追加しました。記事が述べる事実と、棚卸し・移行優先度付け・CISO／技術者向け説明への本ラボの提案を分けています。ノートブック本体は確認できておらず、機能は記事の記述の範囲でのみ扱います。提案は未実装です。
+
 ---
 
 # PQC Crypto Inventory Lab
