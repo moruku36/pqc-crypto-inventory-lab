@@ -2,24 +2,14 @@
 
 ## 全体構成（Architecture Overview）
 
-![PQC Crypto Inventory Lab — Architecture Overview](images/architecture-overview.jpg)
+![PQC Crypto Inventory Lab — Architecture Overview](images/architecture-overview.svg)
 
 ## まず、全体の流れ
 
 このツールは「情報を集める」「その意味を分類する」「結果をまとめる」の3段階で動きます。
 たとえるなら、調査票を集め、項目ごとに確認し、報告書にする流れです。
 
-```mermaid
-flowchart TD
-    A[コマンドを入力する] --> B{何を調べるか}
-    B -->|tls| C[接続して公開TLS情報を取得]
-    B -->|directory / score / report| D[指定したフォルダーのファイルを読む]
-    C --> E[方式と判定理由を整理]
-    D --> E
-    E --> F[TLSまたは棚卸しのJSON出力]
-    D --> G[score / reportでは変更しやすさも採点]
-    G --> H[scoreはJSON・reportはMarkdown]
-```
+図はディレクトリ棚卸しの経路です。原本は [Mermaid](diagrams/architecture-overview.mmd)、再生成方法は[手順](diagrams/README.md)にあります。`compare` は二つのディレクトリの静的根拠を比較します。`tls` は別経路で、許可したホストとの証明書検証付き接続を一回観測します。
 
 `report`が対象にするのはフォルダーです。TLSの実測結果をレポートに自動統合する機能はありません。
 

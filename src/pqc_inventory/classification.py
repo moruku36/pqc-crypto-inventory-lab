@@ -2,6 +2,14 @@
 
 from dataclasses import asdict, dataclass
 
+PQC_PARAMETER_SETS = {"ML-KEM": ("512", "768", "1024"),
+                      "ML-DSA": ("44", "65", "87")}
+PQC_NAMES = {"ML-KEM", "ML-DSA", "SLH-DSA"} | {
+    f"{family}-{parameter}"
+    for family, parameters in PQC_PARAMETER_SETS.items()
+    for parameter in parameters
+}
+
 
 @dataclass(frozen=True)
 class Assessment:
@@ -21,7 +29,7 @@ def assess(value: str) -> Assessment:
         return Assessment(value, "QUANTUM_VULNERABLE",
                           "Classical factoring/discrete-log cryptography is vulnerable to "
                           "Shor's algorithm on a sufficiently capable quantum computer.")
-    if name in {"ML-KEM", "ML-DSA", "SLH-DSA"}:
+    if name in PQC_NAMES:
         return Assessment(value, "SAFE", "Standardized post-quantum algorithm family; "
                           "parameter set, implementation, protocol and deployment are unverified. "
                           "SAFE is an algorithm-level screening label only.")
