@@ -12,7 +12,7 @@ from cryptography import x509
 from cryptography.exceptions import UnsupportedAlgorithm
 from cryptography.hazmat.primitives import serialization
 
-from pqc_inventory.classification import assess
+from pqc_inventory.classification import PQC_PARAMETER_SETS, assess
 from pqc_inventory.tls_scanner import ScanError, public_key_info
 
 MAX_BYTES = 1_048_576
@@ -26,6 +26,9 @@ ALIASES = {"rsa": "RSA", "ecdsa": "ECDSA", "ecdh": "ECDH", "ed25519": "Ed25519",
            "x25519": "X25519", "sha1": "SHA-1", "sha256": "SHA-256",
            "sha384": "SHA-384", "sha512": "SHA-512", "aes": "AES", "aes256": "AES-256",
            "mlkem": "ML-KEM", "mldsa": "ML-DSA", "slhdsa": "SLH-DSA"}
+for family, parameters in PQC_PARAMETER_SETS.items():
+    for parameter in parameters:
+        ALIASES[f"{family.replace('-', '').lower()}{parameter}"] = f"{family}-{parameter}"
 PRIVATE_HEADER = re.compile(rb"-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----")
 CONFIG_ALGORITHM = re.compile(
     r"^\s*[\"']?(?:algorithm|cipher|hash|signature_algorithm|key_exchange)[\"']?\s*[:=]\s*"

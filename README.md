@@ -1,67 +1,47 @@
 # PQC Crypto Inventory Lab
 
-[English](README.md) | [日本語](README.ja.md)
+[日本語](README.ja.md) | English
 
-An educational tool for inventorying cryptography in source code, configuration, and supported TLS endpoints, then producing findings and migration-planning reports for post-quantum readiness.
+An educational, evidence-based inventory for cryptography in selected local files and one authorized TLS endpoint. It helps a person plan what to investigate for post-quantum migration. It does not certify a system as quantum-safe.
 
-## Research into practice
+![Data flow from selected inputs to static findings and reports](docs/images/architecture-overview.svg)
 
-The [D-Wave annealing/RSA reference candidate](docs/dwave-annealing-rsa-reference.ja.md) (Japanese with English summary) records a news-linked primary PDF that could not be retrieved. Full text and formal bibliography remain unverified; no practical RSA-2048 decryption, quantum advantage or new lab functionality is claimed.
+## Try the bundled sample
 
-The [CAMM evaluation note](docs/camm-practical-evaluation.ja.md) (Japanese with an English summary; arXiv:2604.12428v1, reviewed 2026-10-15) proposes a scoped evidence worksheet and reviewer exercise. The current heuristic score is not a CAMM maturity level; these proposals are not implemented.
+Python 3.11 or later is required. From the repository root:
 
-The [PQC discovery paper review](docs/pqc-discovery-governance.md) ([日本語](docs/pqc-discovery-governance.ja.md), arXiv:2605.16549v1, reviewed 2026-10-12) explains how evidence, accountable owners and supplier constraints can turn findings into decisions. It starts with a short PMO overview and proposes an offline exercise using existing samples. The case study has not been reproduced here; QER scoring and register extensions are not implemented. Continue through the [human review workflow](docs/review-workflow.md) and [source index](docs/references.md).
-
-The [Google PQC Gemini Notebook note](docs/gemini-pqc-notebook-readiness.md) ([日本語](docs/gemini-pqc-notebook-readiness.ja.md), Google Cloud Blog published 2026-10-14, reviewed 2026-10-18) separates what Google's article states from this lab's proposals for inventory, migration prioritization and CISO/engineer briefings. The notebook itself could not be inspected; its behavior is described only as the article states it. The proposals are not implemented.
-
-## Start learning
-
-Use the supplied sample and reports to learn how crypto inventory findings become migration-planning inputs. The project includes TLS inspection, directory inventory, migration reports, a crypto-agility score, and security-specialist learning notes.
-
-```bash
+```sh
 python -m venv .venv
-# Activate the virtual environment for your shell.
+# Activate .venv using your shell's normal command.
 python -m pip install -e ".[dev]"
-pqc-scan --help
 pqc-scan directory ./samples/project
+pqc-scan score ./samples/project
+pqc-scan report ./samples/project --output reports/first-review.md
 ```
 
-[Getting started](docs/getting-started.md) · [Reading results](docs/reading-results.md) · [Scoring](docs/scoring.md) · [Architecture](docs/architecture.md) · [Glossary](docs/glossary.md).
+The first command prints JSON findings. `path` and `line` locate evidence; `kind` describes detection; `value`, `status`, `confidence`, and `reason` describe a narrow algorithm-level assessment. The sample has five findings and scores 25/100 evidence points, not a security percentage. The report creates a new file and never overwrites one. See [reading results](docs/reading-results.md) and [the scoring rubric](docs/scoring.md).
 
-Findings and scores are educational planning aids. They do not prove that all cryptography has been found or that a system is quantum-safe. Review the documented scanner scope and security boundaries.
+## What works today
 
-
-## Contents
-
-- [SECURITY.md](SECURITY.md)
-- [docs/](docs)
-- [reports/](reports)
-- [samples/](samples)
-- [src/](src)
-- [tests/](tests)
-
-## Detailed documentation
-
-The [Japanese guide](README.ja.md) retains the complete original setup instructions, configuration, examples, project status, and limitations. Supporting documents keep their existing language.
-
----
-
-## Future Research — measured PQC performance impact (2026-10-13)
-
-**Status: proposed; no scanner, scoring or accelerator feature added.**
-
-### Paper reviewed
-
-[Accelerating Post-Quantum Cryptography via LLM-Driven Hardware-Software Co-Design](https://arxiv.org/html/2602.09410v1) — Yuchao Liao, Tosiron Adegbija and Roman Lysecky; arXiv:2602.09410v1. Reviewed Sections III–V and Table III. The study uses ChatGPT-4o, gprof, FALCON reference C, Cortex-A53 and ZCU104/Vitis HLS 2023.2. Its up-to-2.6× result concerns individual kernels versus HLS, not end-to-end TLS. Source-only hotspot rankings diverged from profiling; constant-time and leakage verification remain future work.
-
-The following are **our migration-planning proposals**. The paper does not establish a hardware requirement for all PQC deployments, or validate Nitro Enclaves/CloudHSM as PQC accelerators. Provider support and actual offload capability require separate evidence.
-
-| Priority | Planned investigation | Acceptance criterion |
+| Command | Input | Output and boundary |
 |---|---|---|
-| P1 | Draft an optional performance evidence register alongside inventory findings: workload/operation, algorithm and parameter set, library/version, CPU/runtime, build flags, concurrency, baseline and candidate latency/throughput, CPU/memory, timestamp and evidence reference. | Distinguish measured, declared, inferred and unknown values. Static detections never fabricate CPU load or performance estimates. Missing benchmark evidence stays unknown and does not silently change the existing agility score. |
-| P1 | Start with a manual offline benchmark of a maintained library on the actual target CPU; measure key generation, signing, verification and key establishment separately where supported. | Fix build/workload conditions, use warm-up and repeated runs, report distributions and failures. Compare against application requirements; kernel timing alone cannot predict TLS latency. No external TLS load test is started automatically. |
-| P2 | Produce a migration-impact report that joins inventory ownership/use with benchmark evidence, application SLOs and supplier constraints. | Report measured headroom, uncertainties and owner review. Consider software optimization, library choice and capacity before declaring offload necessary; no performance-risk classification from algorithm name alone. |
-| P2 | Evaluate source-only versus profile-guided hotspot suggestions with a local model as an optional assistant, linked to the Sidekick research plan. | Validate suggestions against held-out measurements and function references; disclose model, quantization and prompt. Local-model suitability is unverified, and LLM rankings are advisory. |
-| P3 | Explore one FPGA kernel only if measured application limits justify it; use AI Governance Control for separately scoped independent reference checking. | Compare latency, throughput, area/power and data-transfer/integration overhead. Functional, constant-time and side-channel checks are separate. Unsupported or unperformed checks remain unknown; no self-generated production crypto is adopted. |
+| `directory PATH` | Explicit local directory | JSON: selected Python crypto API calls, selected configuration keys, public keys, X.509 certificates, and private-key presence. Static evidence only. |
+| `score PATH` | Same directory and optional `.pqc-agility.json` | JSON: ten evidence/declaration criteria. Declarations are not independently verified. |
+| `report PATH --output FILE` | Same directory | Markdown inventory and heuristic migration questions. Creates a new file. |
+| `review PATH --output FILE` | Complete directory inventory | Blank CSV for human verification. Refuses partial scans. |
+| `compare BEFORE AFTER` | Two selected directories | JSON change in static evidence; no deployment verification. |
+| `tls HOST` | One explicitly authorized TLS host | One certificate-verified handshake and JSON snapshot. No broad network discovery. |
 
-**Next milestone:** a manually populated performance-register example and reproducible CPU benchmark plan. This extends migration evidence, not the current scanner's language support or a claim of quantum-safe certification. See [source references](docs/references.md), [human review](docs/review-workflow.md), and [AI Governance Control research](https://github.com/moruku36/ai-governance-control#future-research--agent-runtime-and-hwsw-verification-2026-10-13).
+Run `pqc-scan --help` for options. [Architecture and data flow](docs/architecture.md) explain the implementation. [Getting started](docs/getting-started.md) gives a step-by-step Japanese walkthrough; [synthetic samples](samples/README.md) include expected misses and a human review example.
+
+## Read results safely
+
+`QUANTUM_VULNERABLE` identifies a classical public-key family to investigate. `SAFE` is a narrow algorithm-level screening label and does **not** validate parameters, implementation, protocol, key management, or deployment. `UNKNOWN` means the available evidence does not support a conclusion. Zero findings do not establish absence. The report's P1–P3 priorities and agility score are project heuristics, not NIST ratings or deadlines.
+
+The scanner reads only an explicitly chosen directory, with file and count limits. It does not execute sample code or decode private keys, but may read file bytes to identify a private-key header; do not point it at real secrets without authorization. Paths in JSON, CSV and Markdown can themselves be sensitive. Generated `reports/` files are ignored by Git; review output before sharing. For safe learning, use `samples/project` or `samples/mini-service`. Do not use `tls` without permission for the target. Certificate-store collection, broad network scans and live migration are outside this tool.
+
+## Plans and references
+
+[Roadmap and status](docs/roadmap.md) separates implemented work, this revision and decisions still needed. The [offline review exercise](docs/offline-review-exercise.md) and [performance evidence template](docs/performance-evidence.md) use synthetic or unknown values; neither measures a real deployment. Research notes on [PQC discovery](docs/pqc-discovery-governance.md), [CAMM](docs/camm-practical-evaluation.ja.md), [Google's PQC Notebook](docs/gemini-pqc-notebook-readiness.md), and [other references](docs/references.md) remain background, not implemented features. Historical test and phase records are in [Implementation Summary](IMPLEMENTATION_SUMMARY.md).
+
+NIST's finalized standards are [FIPS 203 (ML-KEM)](https://csrc.nist.gov/pubs/fips/203/final), [FIPS 204 (ML-DSA)](https://csrc.nist.gov/pubs/fips/204/final), and [FIPS 205 (SLH-DSA)](https://csrc.nist.gov/pubs/fips/205/final). This lab only recognizes selected names; it does not implement or validate those algorithms. See [security policy](SECURITY.md) and [contributing guide](CONTRIBUTING.md).

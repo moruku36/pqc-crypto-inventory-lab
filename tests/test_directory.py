@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
 
 from pqc_inventory.directory_scanner import MAX_BYTES, inspect_file, scan_directory
+from pqc_inventory.report import replacement
 
 
 def test_ast_not_comments_or_strings(tmp_path: Path) -> None:
@@ -56,3 +57,13 @@ def test_config_context_and_malformed_input(tmp_path: Path) -> None:
     result = scan_directory(tmp_path)
     assert len(result["findings"]) == 1
     assert result["findings"][0]["value"] == "ECDSA"
+
+
+def test_standardized_pqc_parameter_sets_in_explicit_config(tmp_path: Path) -> None:
+    (tmp_path / "algorithms.json").write_text(
+        '{"key_exchange":"ML-KEM-768","signature_algorithm":"ML_DSA_65",'
+        '"unrecognized":{"algorithm":"ML-KEM-999"}}', encoding="utf-8")
+    findings = scan_directory(tmp_path)["findings"]
+    assert [(item["value"], item["status"]) for item in findings] == [
+        ("ML-KEM-768", "SAFE"), ("ML-DSA-65", "SAFE")]
+    assert "Confirm implementation" in replacement("ML-KEM-768")

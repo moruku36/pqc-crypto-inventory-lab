@@ -18,3 +18,8 @@ jobs:
       - run: python -m ruff check .
       - run: python -m mypy
       - run: pqc-scan --version
+      - run: python scripts/check_docs.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node docs/diagrams/render.mjs --check

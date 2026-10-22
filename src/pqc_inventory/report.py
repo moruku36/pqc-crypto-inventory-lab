@@ -5,6 +5,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from pqc_inventory.classification import PQC_NAMES
 from pqc_inventory.directory_scanner import scan_directory
 from pqc_inventory.scoring import score_inventory
 from pqc_inventory.tls_scanner import ScanError
@@ -38,7 +39,7 @@ def priority(item: dict[str, Any]) -> str:
 
 
 def replacement(algorithm: str) -> str:
-    if algorithm in {"ML-KEM", "ML-DSA", "SLH-DSA"}:
+    if algorithm in PQC_NAMES:
         return "Confirm implementation, protocol support, interoperability and deployment."
     if algorithm in {"RSA", "ECC"}:
         return ("Confirm purpose first: key establishment may use ML-KEM or a supported hybrid; "
