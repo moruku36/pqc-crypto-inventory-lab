@@ -1,6 +1,6 @@
 # CAMM評価論文から考える、根拠付きの暗号移行評価
 
-**状態：文書による改善提案。採点・CLI・スキーマの変更、追試は未実施。確認日：2026-10-15 UTC。**
+**状態：文書による改善提案。別途、合成サンプル向けの[評価票と記入例](../samples/mini-service-evidence-review.md)を作成。第二評価者との比較、採点・CLI・既存CSVの変更、論文の追試は未実施。確認日：2026-10-15 UTC。**
 
 [Practical Evaluation of the Crypto-Agility Maturity Model](https://arxiv.org/abs/2604.12428v1)（Wolfほか、v1、2026-04-14）の書誌・評価条件・限界は[論文サーベイ](https://github.com/moruku36/independent-cs-research-2026/blob/main/surveys/collection-v2/2026-camm-practical-evaluation.md)に記録した。[原文PDF](https://arxiv.org/pdf/2604.12428v1)の§3–5は、成熟度を判定する範囲と証拠を明確にする必要性を示している。ラボへの採用案は以下の独自提案であり、論文による本ラボの検証ではない。
 
@@ -25,7 +25,7 @@
 | 4 | 移行の運用根拠を別途確認する | 切替・互換性・切戻し・最低セキュリティ条件の試験計画と、実行結果を区別する。未実行なら未実行と記載する |
 | 5 | 自動評価の追加可否を判断する | 再現可能な判定基準と人のレビューで有用性を確認してから、別変更としてスキーマとテストを設計する。今回の提案で既存点数を変更しない |
 
-最初の成果物は、[正解つき模擬システム](../samples/mini-service/README.md)を対象にした手作業評価票1件を想定する。ここではその評価票の作成・実行・一致率測定まで完了したとは主張しない。外部TLSへの追加アクセスや本物の鍵の取得は演習に含めない。
+最初の成果物として、[正解つき模擬システム](../samples/mini-service/README.md)を対象にした[手作業評価票と著者の記入例](../samples/mini-service-evidence-review.md)を追加した。第二評価者による独立判断、比較、一致率測定は未実施である。外部TLSへの追加アクセスや本物の鍵の取得は演習に含めない。
 
 ## 他の改善計画との関係
 
@@ -33,6 +33,6 @@
 
 ## English
 
-This documentation-only proposal keeps the existing heuristic score separate from CAMM maturity levels. The next step is a manual, scoped evidence worksheet and independent reviewer exercise. No new assessment engine, schema or migration test has been implemented.
+This documentation-only proposal keeps the existing heuristic score separate from CAMM maturity levels. A separate manual worksheet and author example now exist; an independent second review remains the next step. No assessment engine, existing CSV schema change or migration test has been implemented.
 
 [日本語README](../README.ja.md) | [出典索引](references.md) | [採点仕様](scoring.md)

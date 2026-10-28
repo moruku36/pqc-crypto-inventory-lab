@@ -2,6 +2,8 @@
 
 This worked walkthrough uses only the committed [synthetic ground truth](../samples/mini-service-ground-truth.json) and [example review CSV](../samples/mini-service-review-example.csv). It is an author walkthrough, not a second independent review or a runtime test. The proposed review fields stay outside the CSV schema.
 
+A separate [review worksheet](independent-review-worksheet.md) and [filled author example](../samples/mini-service-evidence-review.md) show how to separate scope, evidence, applicability and judgment. A second independent review and agreement measurement remain unperformed.
+
 | Service question | Existing evidence | Use class / lead time | Investigation order versus report heuristic |
 |---|---|---|---|
 | Document signatures | `F001`, RSA call in `app/signing.py`; scenario declares active use | Signature/authentication; lead time **unknown** | Report would flag quantum-vulnerable RSA for P2. Confirm callers, verifier compatibility and supplier support before scheduling migration. |

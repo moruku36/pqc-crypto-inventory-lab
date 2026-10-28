@@ -1,6 +1,6 @@
 # Optional performance evidence / 任意の性能証拠台帳
 
-This manual companion template is the first documentation step from the former README research plan. It does not alter scanner output or the agility score. **No benchmark has been run for this repository.** Never infer CPU cost or migration risk from an algorithm name alone.
+This manual companion template does not alter scanner output or the agility score. A small offline ML-KEM experiment is recorded in [the experiment](../experiments/mlkem/README.md); it is not a deployment measurement. Never infer CPU cost or migration risk from an algorithm name alone.
 
 | Field | Synthetic/blank example | Rule |
 |---|---|---|
